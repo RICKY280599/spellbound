@@ -3,7 +3,7 @@
  John McGraw
  Ricardo Sanchez
  Christian Mosey
- */
+*/
 
 import processing.sound.*;
 
@@ -17,13 +17,15 @@ Wizard wiz;
 Background darkSky;
 
 //Booleans used to determine game state
-boolean inMenu, easyMode, hardMode, start;
+boolean inMenu, easyMode, hardMode, endlessMode, start;
 
 //int used to track option hovered by player (since game only uses keyboard input)
 int menuOption = 0;
 
 //LoadGame objects to load respective difficulty game objects
-//LoadGame easy = new LoadGame(0);
+LoadGame easy = new LoadGame(0);
+LoadGame hard = new LoadGame(1);
+LoadGame endless = new LoadGame(2);
 
 void setup() {
   size(900, 600);
@@ -50,6 +52,18 @@ void draw() {
       menuMusic.loop();
     }
     loadMenu();
+  }
+  
+  if(easyMode){
+    easy.display();
+  }
+  
+  if(hardMode){
+    hard.display();
+  }
+  
+  if(endlessMode){
+    endless.display();
   }
 }
 
@@ -83,6 +97,10 @@ void keyPressed() {
   if (inMenu) {
     updateMenu();
   }
+  
+  if (easyMode || hardMode || endlessMode) {
+    wiz.updatePosition();
+  }
 }
 
 void updateMenu() {
@@ -110,6 +128,24 @@ void updateMenu() {
       if (menuOption > 0) {
         menuSelection.play();
         menuOption--;
+      }
+    }
+    if(key == ENTER){
+      menuSelection.play();
+      //Easy mode selected
+      if(menuOption == 0){
+        easyMode = true;
+        inMenu = false;
+      }
+      //Hard mode selected
+      if(menuOption == 1){
+        hardMode = true;
+        inMenu = false;
+      }
+      //Endless mode selected
+      if(menuOption == 2){
+        endlessMode = true;
+        inMenu = false;
       }
     }
   }
