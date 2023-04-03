@@ -14,7 +14,7 @@ class Background{
   }
   
   void display(){
-    image(images[0], 0, 0);
+    background(images[0]);
     for(int i = 1; i < images.length; i++){
       image(images[i], (px*i)-width, 0);
       image(images[i], px*i, 0);

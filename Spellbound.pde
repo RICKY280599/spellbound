@@ -33,7 +33,7 @@ void setup() {
   textAlign(CENTER, CENTER);
   
   //Load darkSky animated background for main menu, its music and soundFX
-  String[] temp = {"Backgrounds/DarkSky/1Resized.png", "Backgrounds/DarkSky/2Resized.png", "Backgrounds/DarkSky/3Resized.png", "Backgrounds/DarkSky/4Resized.png"};
+  String[] temp = {"Backgrounds/DarkSky/1.png", "Backgrounds/DarkSky/2.png", "Backgrounds/DarkSky/3.png", "Backgrounds/DarkSky/4.png"};
   darkSky = new Background(temp);
   menuMusic = new SoundFile(this, "Music/arcade_acadia.wav");
   menuMusic.amp(0.7);
