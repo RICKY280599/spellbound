@@ -1,16 +1,17 @@
 /*
   Mason Enojo
-  John McGraw
-  Ricardo Sanchez
-  Christian Mosey
-*/
+ John McGraw
+ Ricardo Sanchez
+ Christian Mosey
+ */
 
 import processing.sound.*;
 
-//Images, font, and sound loaders
+//Images, font, sound, and spritesheet loaders
 PImage menu;
 PFont OutlineFont, NoOutlineFont;
 SoundFile menuMusic, menuSelection;
+Wizard wiz;
 
 //Background loaders
 Background darkSky;
@@ -31,19 +32,22 @@ void setup() {
   NoOutlineFont = createFont("Fonts/NoOutlineMain.ttf", 30);
   textFont(OutlineFont);
   textAlign(CENTER, CENTER);
-  
+
   //Load darkSky animated background for main menu, its music and soundFX
   String[] temp = {"Backgrounds/DarkSky/1.png", "Backgrounds/DarkSky/2.png", "Backgrounds/DarkSky/3.png", "Backgrounds/DarkSky/4.png"};
   darkSky = new Background(temp);
   menuMusic = new SoundFile(this, "Music/arcade_acadia.wav");
   menuMusic.amp(0.7);
   menuSelection = new SoundFile(this, "SoundFX/MenuSelection.wav");
+  
+  //Load Wizard object
+  wiz = new Wizard();
 }
 
 void draw() {
-  if(inMenu) {
-    if(!menuMusic.isPlaying()){
-      menuMusic.loop();    
+  if (inMenu) {
+    if (!menuMusic.isPlaying()) {
+      menuMusic.loop();
     }
     loadMenu();
   }
@@ -51,64 +55,62 @@ void draw() {
 
 void loadMenu() {
   darkSky.display();
-  
+  wiz.display("Idle", 340, 100);
+
   fill(222, 2, 207);
   textFont(OutlineFont);
   text("SPELLBOUND", width/2, height/2);
-  
+
   fill(179, 2, 166);
   textFont(NoOutlineFont);
   text("EASY", (width/3) - (width/6), height-150);
   text("HARD", 2*(width/3) - (width/6), height-150);
   text("ENDLESS", 3*(width/3) - (width/6), height-150);
-  
-  if(menuOption == 0){
+
+  if (menuOption == 0) {
     fill(3, 252, 240);
     text("EASY", (width/3) - (width/6), height-150);
-  }
-  else if(menuOption == 1){
+  } else if (menuOption == 1) {
     fill(3, 252, 240);
     text("HARD", 2*(width/3) - (width/6), height-150);
-  }
-  else if(menuOption == 2){
+  } else if (menuOption == 2) {
     fill(3, 252, 240);
     text("ENDLESS", 3*(width/3) - (width/6), height-150);
   }
 }
 
-void keyPressed(){
-  if(inMenu){
+void keyPressed() {
+  if (inMenu) {
     updateMenu();
   }
 }
 
-void updateMenu(){
-  if(key == CODED){
-      if(keyCode == RIGHT){
-        if(menuOption < 2){
-          menuSelection.play();
-          menuOption++;
-        }
-      }
-      if(keyCode == LEFT){
-        if(menuOption > 0){
-          menuSelection.play();
-          menuOption--;  
-        }
+void updateMenu() {
+  if (key == CODED) {
+    if (keyCode == RIGHT) {
+      if (menuOption < 2) {
+        menuSelection.play();
+        menuOption++;
       }
     }
-    else{
-      if(key == 'd' || key == 'D'){
-        if(menuOption < 2){
-          menuSelection.play();
-          menuOption++;
-        }
-      }
-      if(key == 'a' || key == 'A'){
-        if(menuOption > 0){
-          menuSelection.play();
-          menuOption--;  
-        }
+    if (keyCode == LEFT) {
+      if (menuOption > 0) {
+        menuSelection.play();
+        menuOption--;
       }
     }
+  } else {
+    if (key == 'd' || key == 'D') {
+      if (menuOption < 2) {
+        menuSelection.play();
+        menuOption++;
+      }
+    }
+    if (key == 'a' || key == 'A') {
+      if (menuOption > 0) {
+        menuSelection.play();
+        menuOption--;
+      }
+    }
+  }
 }
