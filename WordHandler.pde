@@ -61,6 +61,7 @@ class WordList{
      System.out.println(easyWord);
      if (easyWord.indexOf(input.toLowerCase()) != 0 && hardWord.indexOf(input.toLowerCase()) != 0){
        input = "";
+       playFail();
      }
      if (easyWord.indexOf(input.toLowerCase()) == 0 && hardWord.indexOf(input.toLowerCase()) == 0){
         currentWord = 2; 
