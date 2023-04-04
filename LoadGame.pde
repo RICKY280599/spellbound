@@ -17,7 +17,7 @@ class LoadGame{
     if(difficulty == 0){
       easy = true;
       enemyCount = 25;
-      WordList words = WordList(easyList);
+    
       //TODO: Set appropriate enemy speed.
     }
     if(difficulty == 1){
