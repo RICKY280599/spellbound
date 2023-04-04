@@ -12,6 +12,8 @@ PImage menu;
 PFont OutlineFont, NoOutlineFont;
 SoundFile menuMusic, menuSelection;
 Wizard wiz;
+public List<String> easyList = new ArrayList();
+public List<String> hardList = new ArrayList();
 
 //Background loaders
 Background darkSky;
@@ -34,19 +36,41 @@ void setup() {
   NoOutlineFont = createFont("Fonts/NoOutlineMain.ttf", 30);
   textFont(OutlineFont);
   textAlign(CENTER, CENTER);
-
   //Load darkSky animated background for main menu, its music and soundFX
   String[] temp = {"Backgrounds/DarkSky/1.png", "Backgrounds/DarkSky/2.png", "Backgrounds/DarkSky/3.png", "Backgrounds/DarkSky/4.png"};
   darkSky = new Background(temp);
   menuMusic = new SoundFile(this, "Music/arcade_acadia.wav");
   menuMusic.amp(0.7);
   menuSelection = new SoundFile(this, "SoundFX/MenuSelection.wav");
-  
+  handleEasyList();
+  handleHardList();
   //Load Wizard object
   wiz = new Wizard();
 }
 
+void handleEasyList(){
+  String[] tempStr = loadStrings("WordList/easyWordList.txt");
+  for (String line : tempStr){
+   easyList.addAll(Arrays.asList(line.split(",")));  
+  }
+  for(String word : easyList){
+   //System.out.println(word); 
+  }
+  //System.out.println(easyList.size()); 
+}
+void handleHardList(){
+  String[] tempStr = loadStrings("WordList/hardWordList.txt");
+  for (String line : tempStr){
+   easyList.addAll(Arrays.asList(line.split(",")));  
+  }
+  for(String word : easyList){
+   //System.out.println(word); 
+  }
+  //System.out.println(easyList.size()); 
+}
+
 void draw() {
+  
   if (inMenu) {
     if (!menuMusic.isPlaying()) {
       menuMusic.loop();

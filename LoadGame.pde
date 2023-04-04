@@ -1,9 +1,13 @@
+import java.util.*;
+import java.io.*;
 class LoadGame{
   
   boolean easy, hard, endless;
   
   float barrierHP, enemySpeed;
   int enemyCount;
+  
+  List<String> wordList;
   
   //Sets and loads appropriate difficulty level chosen by player.
   LoadGame(int difficulty){
@@ -13,6 +17,7 @@ class LoadGame{
     if(difficulty == 0){
       easy = true;
       enemyCount = 25;
+      WordList words = WordList(easyList);
       //TODO: Set appropriate enemy speed.
     }
     if(difficulty == 1){
