@@ -49,3 +49,4 @@ class LoadGame{
     wiz.update();
     eyeEnemy.updateSprite(1);
   }
+}
