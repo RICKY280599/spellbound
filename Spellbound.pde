@@ -16,6 +16,8 @@ WordList wrds;
 List<String> easyList = new ArrayList();
 List<String> hardList = new ArrayList();
 
+FlyingEnemy eyeEnemy;
+
 //Background loaders
 Background darkSky;
 
@@ -50,6 +52,9 @@ void setup() {
   wiz = new Wizard();
   wrds = new WordList();
   wrds.setLists(easyList, hardList);
+  
+  //Load FlyingEnemy Object
+  eyeEnemy = new FlyingEnemy();
 }
 
 void handleEasyList(){
