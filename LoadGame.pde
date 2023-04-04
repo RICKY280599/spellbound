@@ -18,21 +18,21 @@ class LoadGame{
       enemyCount = 25;
       //TODO: Set appropriate enemy speed.
       String[] temp = {"Backgrounds/EasySky/1.png", "Backgrounds/EasySky/2.png", "Backgrounds/EasySky/3.png", "Backgrounds/EasySky/4.png"};
-      backgrnd = new Background(temp);
+      backgrnd = new Background(temp, false);
     }
     if(difficulty == 1){
       hard = true;
       enemyCount = 50;
       //TODO: Set appropriate enemy speed.
       String[] temp = {"Backgrounds/HardSky/1.png", "Backgrounds/HardSky/2.png", "Backgrounds/HardSky/3.png", "Backgrounds/HardSky/4.png"};
-      backgrnd = new Background(temp);
+      backgrnd = new Background(temp, false);
     }
     if(difficulty == 2){
       endless = true;
       enemyCount = -1;
       //TODO: Set appropriate enemy speed.
       String[] temp = {"Backgrounds/EndlessSky/1.png", "Backgrounds/EndlessSky/2.png", "Backgrounds/EndlessSky/3.png", "Backgrounds/EndlessSky/4.png"};
-      backgrnd = new Background(temp);
+      backgrnd = new Background(temp, false);
     }
  }
   

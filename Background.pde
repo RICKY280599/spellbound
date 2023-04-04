@@ -3,26 +3,36 @@ class Background{
   PImage[] images;
   float px;
   float direction;
+  boolean isDynamic;
 
-  Background(String[] fileNames){
+  Background(String[] fileNames, boolean dynamic){
     images = new PImage[fileNames.length];
     for(int i = 0; i < fileNames.length; i++){
       images[i] = loadImage(fileNames[i]);
     }
     px = 0;
     direction = 0.50;
+    isDynamic = dynamic;
   }
   
   void display(){
-    background(images[0]);
-    for(int i = 1; i < images.length; i++){
-      image(images[i], (px*i)-width, 0);
-      image(images[i], px*i, 0);
-      if((px*i) >= width || (px*i) < 0){
-        direction = -1*direction;
+    if(isDynamic){
+      background(images[0]);
+      for(int i = 1; i < images.length; i++){
+        image(images[i], (px*i)-width, 0);
+        image(images[i], px*i, 0);
+        if((px*i) >= width || (px*i) < 0){
+          direction = -1*direction;
+        }
+      }
+      px = px + direction;
+    }
+    else{
+      background(images[0]);
+      for(int i = 1; i < images.length; i++){
+        image(images[i], 0, 0);
       }
     }
-    px = px + direction;
   }
   
 }

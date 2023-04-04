@@ -46,7 +46,7 @@ void setup() {
   
   //Load darkSky animated background for main menu, its music and soundFX
   String[] temp = {"Backgrounds/DarkSky/1.png", "Backgrounds/DarkSky/2.png", "Backgrounds/DarkSky/3.png", "Backgrounds/DarkSky/4.png"};
-  darkSky = new Background(temp);
+  darkSky = new Background(temp, true);
   menuMusic = new SoundFile(this, "Music/arcade_acadia.wav");
   menuMusic.amp(0.7);
   menuSelection = new SoundFile(this, "SoundFX/MenuSelection.wav");
