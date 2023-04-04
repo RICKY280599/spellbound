@@ -65,6 +65,10 @@ void setup() {
   eyeEnemy = new FlyingEnemy();
 }
 
+void playFail(){
+ fail.play()
+}
+
 void handleEasyList(){
   String[] tempStr = loadStrings("WordList/easyWordList.txt");
   for (String line : tempStr){
