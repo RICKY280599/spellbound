@@ -3,6 +3,8 @@ class Wizard{
   //SpriteSheet sheet;
   HashMap<String, SpriteSheet> actions = new HashMap<>();
   float xpos, ypos;
+  PImage mount;
+  boolean isFlying;
 
   Wizard() {
     actions.put("Attack1", new SpriteSheet("WizardPack/Attack1.png", 8, 6));
@@ -14,6 +16,10 @@ class Wizard{
     actions.put("Run", new SpriteSheet("WizardPack/Run.png", 8, 6));
     actions.put("Idle", new SpriteSheet("WizardPack/Idle.png", 6, 6));
     
+    //Load Wizard's cloud mount
+    mount = loadImage("WizardPack/FlyingCloud.png");
+    isFlying = true;
+    
     //Initial wizard position
     xpos = -50;
     ypos = height - 215;
@@ -21,6 +27,9 @@ class Wizard{
   
   void display(String action, float xp, float yp){
     actions.get(action).display(xp, yp);
+    if(isFlying){
+      image(mount, xp+85, yp+125);
+    }
   }
   
   void update(){
@@ -35,6 +44,14 @@ class Wizard{
       if(keyCode == DOWN && ypos < height-300){
         ypos += 100;
       }
+    }
+    
+    //Check if flying
+    if(ypos <= (height - 215) - (100 * 3)){
+      isFlying = true;
+    }
+    else{
+      isFlying = false;
     }
   }
   

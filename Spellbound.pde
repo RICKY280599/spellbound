@@ -23,9 +23,12 @@ boolean inMenu, easyMode, hardMode, endlessMode, start;
 int menuOption = 0;
 
 //LoadGame objects to load respective difficulty game objects
-LoadGame easy = new LoadGame(0);
-LoadGame hard = new LoadGame(1);
-LoadGame endless = new LoadGame(2);
+//LoadGame easy = new LoadGame(0);
+//LoadGame hard = new LoadGame(1);
+//LoadGame endless = new LoadGame(2);
+LoadGame easy;
+LoadGame hard;
+LoadGame endless;
 
 void setup() {
   size(900, 600);
@@ -34,6 +37,10 @@ void setup() {
   NoOutlineFont = createFont("Fonts/NoOutlineMain.ttf", 30);
   textFont(OutlineFont);
   textAlign(CENTER, CENTER);
+  
+  easy = new LoadGame(0);
+  hard = new LoadGame(1);
+  endless = new LoadGame(2);
 
   //Load darkSky animated background for main menu, its music and soundFX
   String[] temp = {"Backgrounds/DarkSky/1.png", "Backgrounds/DarkSky/2.png", "Backgrounds/DarkSky/3.png", "Backgrounds/DarkSky/4.png"};
