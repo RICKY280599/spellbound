@@ -12,8 +12,9 @@ PImage menu;
 PFont OutlineFont, NoOutlineFont;
 SoundFile menuMusic, menuSelection;
 Wizard wiz;
-public List<String> easyList = new ArrayList();
-public List<String> hardList = new ArrayList();
+WordList wrds;
+List<String> easyList = new ArrayList();
+List<String> hardList = new ArrayList();
 
 //Background loaders
 Background darkSky;
@@ -44,8 +45,11 @@ void setup() {
   menuSelection = new SoundFile(this, "SoundFX/MenuSelection.wav");
   handleEasyList();
   handleHardList();
+  //WordList words = WordList(easyList);
   //Load Wizard object
   wiz = new Wizard();
+  wrds = new WordList();
+  wrds.setLists(easyList, hardList);
 }
 
 void handleEasyList(){
@@ -61,7 +65,7 @@ void handleEasyList(){
 void handleHardList(){
   String[] tempStr = loadStrings("WordList/hardWordList.txt");
   for (String line : tempStr){
-   easyList.addAll(Arrays.asList(line.split(",")));  
+   hardList.addAll(Arrays.asList(line.split(",")));  
   }
   for(String word : easyList){
    //System.out.println(word); 
@@ -80,14 +84,17 @@ void draw() {
   
   if(easyMode){
     easy.display();
+    wrds.display();
   }
   
   if(hardMode){
     hard.display();
+    wrds.display();  
   }
   
   if(endlessMode){
     endless.display();
+    wrds.display();
   }
 }
 
@@ -124,6 +131,7 @@ void keyPressed() {
   
   if (easyMode || hardMode || endlessMode) {
     wiz.updatePosition();
+    wrds.update();
   }
 }
 
@@ -158,16 +166,30 @@ void updateMenu() {
       menuSelection.play();
       //Easy mode selected
       if(menuOption == 0){
+        System.out.println(easyList.size());
+        System.out.println(hardList.size());
+        wrds.generateWord(true);
+        wrds.generateWord(false);
+        System.out.println(wrds.getWord(true));
+        System.out.println(wrds.getWord(false));
         easyMode = true;
         inMenu = false;
       }
       //Hard mode selected
       if(menuOption == 1){
+        wrds.generateWord(true);
+        wrds.generateWord(false);
+        System.out.println(wrds.getWord(true));
+        System.out.println(wrds.getWord(false));
         hardMode = true;
         inMenu = false;
       }
       //Endless mode selected
       if(menuOption == 2){
+        wrds.generateWord(true);
+        wrds.generateWord(false);
+        System.out.println(wrds.getWord(true));
+        System.out.println(wrds.getWord(false));
         endlessMode = true;
         inMenu = false;
       }
