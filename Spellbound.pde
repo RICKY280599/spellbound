@@ -58,6 +58,7 @@ void setup() {
   //WordList words = WordList(easyList);
   //Load Wizard object
   wiz = new Wizard();
+  
   wrds = new WordList();
   wrds.setLists(easyList, hardList);
   
