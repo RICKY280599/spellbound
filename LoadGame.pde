@@ -41,6 +41,7 @@ class LoadGame{
     textFont(NoOutlineFont, 20);
     text("Enemies Left: " + (enemyCount == -1 ? "inf." : enemyCount), (width - 180), 15);
     wiz.update();
+    eyeEnemy.updateSprite(1);
   }
 
 }
