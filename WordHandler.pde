@@ -61,7 +61,6 @@ class WordList{
      System.out.println(easyWord);
      if (easyWord.indexOf(input.toLowerCase()) != 0 && hardWord.indexOf(input.toLowerCase()) != 0){
        input = "";
-       playFail();
      }
      if (easyWord.indexOf(input.toLowerCase()) == 0 && hardWord.indexOf(input.toLowerCase()) == 0){
         currentWord = 2; 
@@ -74,11 +73,13 @@ class WordList{
      }
      if (input.equalsIgnoreCase(easyWord)){
        System.out.println("easy complete");
+       wiz.updateEasyAttack();
        generateWord(true);
        input = "";
      }
      if (input.equalsIgnoreCase(hardWord)){
        System.out.println("hard complete");
+       wiz.updateHardAttack();
        generateWord(false);
        input = "";
      }
