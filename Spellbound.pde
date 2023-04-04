@@ -11,6 +11,7 @@ import processing.sound.*;
 PImage menu;
 PFont OutlineFont, NoOutlineFont;
 SoundFile menuMusic, menuSelection;
+public SoundFile fail;
 Wizard wiz;
 WordList wrds;
 List<String> easyList = new ArrayList();
@@ -50,6 +51,8 @@ void setup() {
   menuMusic = new SoundFile(this, "Music/arcade_acadia.wav");
   menuMusic.amp(0.7);
   menuSelection = new SoundFile(this, "SoundFX/MenuSelection.wav");
+  fail = new SoundFile(this, "SoundFX/fail.wav");
+  fail.amp(0.4);
   handleEasyList();
   handleHardList();
   //WordList words = WordList(easyList);
