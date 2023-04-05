@@ -67,7 +67,7 @@ void setup() {
 }
 
 void playFail(){
- fail.play()
+ fail.play();
 }
 
 void handleEasyList(){
