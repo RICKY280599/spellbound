@@ -31,6 +31,19 @@ boolean enemiesInitialized;
 
 FlyingEnemy eyeEnemy;
 
+//Initializing spawner and enemy objects
+EnemySpawner spawner;
+Enemy enemy;
+
+//Variables to spawn enemies periodically
+int spawnTimer = 0;
+int spawnDelay = 120;
+
+//Check if enemies arraylist has been initialized yet
+boolean enemiesInitialized;
+
+FlyingEnemy eyeEnemy;
+
 //Background loaders
 Background darkSky;
 
@@ -131,6 +144,7 @@ void draw() {
       enemy.updatePosition(spawner.speed);
       }
   }
+  
     Iterator<Spell> itr = spells.iterator();
     //System.out.print(spells.size());
     while (itr.hasNext()){
@@ -142,8 +156,6 @@ void draw() {
        spell.updatePosition();
       }
     }
-    }
-  }
   
   if(hardMode){
     hard.display();

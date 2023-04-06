@@ -83,8 +83,9 @@ class WordList{
        input = "";
      }
      if (input.equalsIgnoreCase(hardWord)){
+       System.out.println("hard complete");
        wiz.updateHardAttack();
-       spawner.handleEnemyDefeat(wiz.ypos);
+       spawner.handleEnemyDefeat(wiz.ypos, true);
        generateWord(false);
        input = "";
      }
