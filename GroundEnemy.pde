@@ -1,4 +1,4 @@
-class GroundEnemy {
+class GroundEnemy implements Enemy {
   
   HashMap<String, SpriteSheet> actions = new HashMap<>();
   float xpos, ypos;
@@ -8,10 +8,13 @@ class GroundEnemy {
   boolean isAttacking = false;
   int enemyType;
   float speed;
-  boolean isDead = false;
+  boolean alive;
+  int frameNumber;
+  boolean active = false;
 
   GroundEnemy(float enemyspeed) {
     enemyType = (int)random(1, 4);
+    alive = true;
 
     if (enemyType == 1) {
       isGoblin = true;
@@ -38,7 +41,8 @@ class GroundEnemy {
   }
 
   // Updates position of the current enemy
-  void updatePosition() {
+  void updatePosition(float speed) {
+   if(active){ 
     if (!isAttacking) {
       xpos -= speed;
       // Checks if the enemy has reached the barrier
@@ -46,34 +50,74 @@ class GroundEnemy {
         isAttacking = true;
       }
     }
-    displayAnimation();
-  }
-
-  // Displays animation based on where the enemy is, and whether they are attacking yet
-  void displayAnimation() {
     if (isGoblin) {
-      if (!isDead) {
+      if (alive) {
         if (isAttacking) {
-          actions.get("GoblinAttack").display(xpos, ypos);
+          displayAnimation("GoblinAttack", xpos, ypos);
         } else {
-          actions.get("GoblinRun").display(xpos, ypos);
+          displayAnimation("GoblinRun", xpos, ypos);
         }
       } else {
-        actions.get("GoblinDeath").display(xpos, ypos);
+        if (frameCount < frameNumber + 4) {
+       displayAnimation("GoblinDeath", xpos, ypos);
+        }
       }
     } else if (isSkeleton) {
-      if (!isDead) {
+      if (alive) {
         if (isAttacking) {
-          actions.get("SkeletonAttack").display(xpos, ypos);
+          displayAnimation("SkeletonAttack", xpos, ypos);
         } else {
-          actions.get("SkeletonWalk").display(xpos, ypos);
+          displayAnimation("SkeletonWalk", xpos, ypos);
         }
       } else {
-        actions.get("SkeletonDeath").display(xpos, ypos);
+        if (frameCount < frameNumber + 4) {
+       displayAnimation("SkeletonDeath", xpos, ypos);
+        }
       }
     }
     else {
-      if (!isDead) {
+      if (alive) {
+        if (isAttacking){
+          displayAnimation("MushroomAttack", xpos, ypos);
+        }
+        else{
+        displayAnimation("MushroomRun", xpos, ypos);
+        }
+       }
+       else{
+         if (frameCount < frameNumber + 4) {
+       displayAnimation("MushroomDeath", xpos, ypos);
+        }
+       }
+    }
+ }
+  }
+
+  // Displays animation based on where the enemy is, and whether they are attacking yet
+  void displayAnimation(String action, float xp, float yp) {
+    if (isGoblin) {
+      if (alive) {
+        if (isAttacking) {
+          actions.get("GoblinAttack").display(xp, yp);
+        } else {
+          actions.get("GoblinRun").display(xp, yp);
+        }
+      } else {
+        actions.get("GoblinDeath").display(xp, yp);
+      }
+    } else if (isSkeleton) {
+      if (alive) {
+        if (isAttacking) {
+          actions.get("SkeletonAttack").display(xp, yp);
+        } else {
+          actions.get("SkeletonWalk").display(xp, yp);
+        }
+      } else {
+        actions.get("SkeletonDeath").display(xp, yp);
+      }
+    }
+    else {
+      if (alive) {
         if (isAttacking){
           actions.get("MushroomAttack").display(xpos,ypos);
         }
@@ -84,6 +128,26 @@ class GroundEnemy {
        else{
         actions.get("MushroomDeath").display(xpos,ypos); 
        }
-}
+    }
+  }
+  
+  void updateDefeat() {
+    alive = false;
+    frameNumber = frameCount;
+  }
+  
+  float getYpos(){
+   return ypos; 
+  }
+  float getXpos(){
+  return xpos;
+  }
+  
+  public boolean isActive() {
+   return active; 
+  }
+  
+  public void setActive(boolean active){
+   this.active = active; 
   }
 }

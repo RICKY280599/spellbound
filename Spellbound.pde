@@ -17,6 +17,17 @@ WordList wrds;
 List<String> easyList = new ArrayList();
 List<String> hardList = new ArrayList();
 
+//Initializing spawner and enemy objects
+EnemySpawner spawner;
+Enemy enemy;
+
+//Variables to spawn enemies periodically
+int spawnTimer = 0;
+int spawnDelay = 300;
+
+//Check if enemies arraylist has been initialized yet
+boolean enemiesInitialized;
+
 FlyingEnemy eyeEnemy;
 
 //Background loaders
@@ -61,9 +72,7 @@ void setup() {
   
   wrds = new WordList();
   wrds.setLists(easyList, hardList);
-  
-  //Load FlyingEnemy Object
-  eyeEnemy = new FlyingEnemy();
+  spawner = new EnemySpawner();
 }
 
 void playFail(){
@@ -103,17 +112,50 @@ void draw() {
   if(easyMode){
     easy.display();
     wrds.display();
+    //Check if enemies are initialized every loop
+    if (!enemiesInitialized){
+      //Enemies are speed 1.0, 25 count
+     spawner.EnemyInitializer(1.0, 25); 
+     enemiesInitialized = true;
+    }
+    //Spawn enemies every 5 seconds
+    if(spawnTimer >= spawnDelay){
+     spawner.spawnEnemy();
+     spawnTimer = 0;
+    }
+    
+    for (Enemy enemy : spawner.enemies) {
+      if (enemy.isActive()) {
+        enemy.updatePosition(spawner.speed);
+      }
+    }
   }
   
   if(hardMode){
     hard.display();
-    wrds.display();  
+    wrds.display();
+    if (!enemiesInitialized){
+     spawner.EnemyInitializer(1.3, 50); 
+     enemiesInitialized = true;
+    }
+    if(spawnTimer >= spawnDelay){
+     spawner.spawnEnemy();
+     spawnTimer = 0;
+    }
+    
+    for (Enemy enemy : spawner.enemies) {
+      if (enemy.isActive()) {
+        enemy.updatePosition(spawner.speed);
+      }
+    }
   }
   
   if(endlessMode){
     endless.display();
     wrds.display();
+    //Still need to add enemy spawning here
   }
+  spawnTimer++;
 }
 
 void loadMenu() {
@@ -201,6 +243,7 @@ void updateMenu() {
         System.out.println(wrds.getWord(false));
         hardMode = true;
         inMenu = false;
+        //spawner.EnemyInitializer(1.4, 50);
       }
       //Endless mode selected
       if(menuOption == 2){

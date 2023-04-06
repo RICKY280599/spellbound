@@ -1,12 +1,15 @@
-class FlyingEnemy {
+class FlyingEnemy implements Enemy {
 
   //SpriteSheet sheet;
   HashMap<String, SpriteSheet> actions = new HashMap<>();
   float xpos, ypos;
   boolean alive;
   int frameNumber;
+  float speed;
+  boolean active = false;
 
-  FlyingEnemy() {
+  FlyingEnemy(float enemySpeed) {
+    speed = enemySpeed;
     alive = true;
     actions.put("Attack", new SpriteSheet("FlyingPack/Eye1/Attack.png", 8, 6));
     actions.put("Flight", new SpriteSheet("FlyingPack/Eye1/Flight.png", 8, 6));
@@ -26,24 +29,25 @@ class FlyingEnemy {
     }
   }
 
-  void display(String action, float xp, float yp) {
+  void displayAnimation(String action, float xp, float yp) {
     actions.get(action).display(xp, yp);
   }
 
-  void updateSprite(int speed) {
+  void updatePosition(float speed) {
     // Draws the sprite
     //checks first to see if the enemy had not been defeated
+   if (active) {
     if (alive) {
       if (xpos > 105) {
-        display("Flight", xpos, ypos);
+        displayAnimation("Flight", xpos, ypos);
       } else {
         //starts attacking when at the barrier
-        display("Attack", xpos, ypos);
+        displayAnimation("Attack", xpos, ypos);
       }
     } else {
       //stops after death animation is done
       if (frameCount < frameNumber + 4) {
-        display("Death", xpos, ypos);
+        displayAnimation("Death", xpos, ypos);
       }
     }
 
@@ -53,9 +57,26 @@ class FlyingEnemy {
       xpos -= speed;
     }
   }
+  }
 
   void updateDefeat() {
     alive = false;
     frameNumber = frameCount;
+  }
+  
+  float getYpos(){
+   return ypos; 
+  }
+  
+  float getXpos(){
+  return xpos;
+  }
+  
+  public boolean isActive() {
+   return active; 
+  }
+  
+  public void setActive(boolean active){
+   this.active = active; 
   }
 }

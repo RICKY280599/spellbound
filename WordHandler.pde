@@ -74,6 +74,7 @@ class WordList{
      if (input.equalsIgnoreCase(easyWord)){
        System.out.println("easy complete");
        wiz.updateEasyAttack();
+       spawner.handleEnemyDefeat(wiz.ypos);
        generateWord(true);
        input = "";
      }
@@ -83,6 +84,6 @@ class WordList{
        generateWord(false);
        input = "";
      }
-   }
  }
+}
 }
