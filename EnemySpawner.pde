@@ -6,6 +6,7 @@ public class EnemySpawner {
  int spawnInterval = 300;
  int nextEnemyIndex = 0;
  int spawnedEnemies;
+
  float minDistance = 300;
  int wave = 1;
  boolean spawnNewWave = true;
@@ -77,6 +78,7 @@ public class EnemySpawner {
         
         if (endlessMode && enemies.size() == 0) {
          spawnNewWave = true; 
+
      }
    }
   }

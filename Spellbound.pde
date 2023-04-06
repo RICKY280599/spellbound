@@ -16,6 +16,20 @@ Wizard wiz;
 WordList wrds;
 List<String> easyList = new ArrayList();
 List<String> hardList = new ArrayList();
+List<Spell> spells = new ArrayList();
+
+//Initializing spawner and enemy objects
+EnemySpawner spawner;
+Enemy enemy;
+
+//Variables to spawn enemies periodically
+int spawnTimer = 0;
+int spawnDelay = 120;
+
+//Check if enemies arraylist has been initialized yet
+boolean enemiesInitialized;
+
+FlyingEnemy eyeEnemy;
 
 //Initializing spawner and enemy objects
 EnemySpawner spawner;
@@ -130,8 +144,18 @@ void draw() {
       enemy.updatePosition(spawner.speed);
       }
   }
+  
+    Iterator<Spell> itr = spells.iterator();
+    //System.out.print(spells.size());
+    while (itr.hasNext()){
+      Spell spell = itr.next();
+      if (spell.getRemove()){
+        itr.remove();
+      } 
+      else{
+       spell.updatePosition();
+      }
     }
-  }
   
   if(hardMode){
     hard.display();
@@ -243,12 +267,8 @@ void updateMenu() {
       menuSelection.play();
       //Easy mode selected
       if(menuOption == 0){
-        System.out.println(easyList.size());
-        System.out.println(hardList.size());
         wrds.generateWord(true);
         wrds.generateWord(false);
-        System.out.println(wrds.getWord(true));
-        System.out.println(wrds.getWord(false));
         easyMode = true;
         inMenu = false;
       }
@@ -256,8 +276,6 @@ void updateMenu() {
       if(menuOption == 1){
         wrds.generateWord(true);
         wrds.generateWord(false);
-        System.out.println(wrds.getWord(true));
-        System.out.println(wrds.getWord(false));
         hardMode = true;
         inMenu = false;
       }
@@ -265,8 +283,6 @@ void updateMenu() {
       if(menuOption == 2){
         wrds.generateWord(true);
         wrds.generateWord(false);
-        System.out.println(wrds.getWord(true));
-        System.out.println(wrds.getWord(false));
         endlessMode = true;
         inMenu = false;
       }

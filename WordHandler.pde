@@ -36,7 +36,12 @@ class WordList{
  void display(){
     textAlign(LEFT);
     fill(3, 252, 240);
-    square(75, 535, 50);
+    PImage easyIcon = loadImage("spells/waterIcon.png");
+    easyIcon.resize(50,50);
+    image(easyIcon, 75, 535);
+    PImage easyIconFrame = loadImage("spells/waterIconFrame.png");
+    easyIconFrame.resize(50,50);
+    image(easyIconFrame, 75, 535);
     text(getWord(true),150,570);
     if (currentWord == 0 || currentWord == 2){
       fill(179, 2, 166);
@@ -57,8 +62,6 @@ class WordList{
         currentWord = -1; 
      }
      input += key;
-     System.out.println(input);
-     System.out.println(easyWord);
      if (easyWord.indexOf(input.toLowerCase()) != 0 && hardWord.indexOf(input.toLowerCase()) != 0){
        input = "";
      }
@@ -72,9 +75,10 @@ class WordList{
          currentWord = 1;
      }
      if (input.equalsIgnoreCase(easyWord)){
-       System.out.println("easy complete");
        wiz.updateEasyAttack();
-       spawner.handleEnemyDefeat(wiz.ypos, false);
+       Spell spell = new Spell(true);
+       spells.add(spell);
+       spawner.handleEnemyDefeat(wiz.ypos);
        generateWord(true);
        input = "";
      }
