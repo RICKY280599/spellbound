@@ -12,9 +12,9 @@ class FlyingEnemy implements Enemy {
   FlyingEnemy(float enemySpeed) {
     speed = enemySpeed;
     alive = true;
-    actions.put("Attack", new SpriteSheet("FlyingPack/Eye1/Attack.png", 8, 6));
-    actions.put("Flight", new SpriteSheet("FlyingPack/Eye1/Flight.png", 8, 6));
-    actions.put("Death", new SpriteSheet("FlyingPack/Eye1/Death.png", 4, 6));
+    actions.put("Attack", new SpriteSheet("FlyingPack/Eye1/Attack.png", 8, 6, 1));
+    actions.put("Flight", new SpriteSheet("FlyingPack/Eye1/Flight.png", 8, 6, 1));
+    actions.put("Death", new SpriteSheet("FlyingPack/Eye1/Death.png", 4, 6, 1));
 
     //Initial enemy position
     xpos = 925;

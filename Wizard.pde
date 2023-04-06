@@ -1,3 +1,4 @@
+import java.util.*;
 class Wizard {
 
   //SpriteSheet sheet;
@@ -67,6 +68,15 @@ class Wizard {
       isFlying = true;
     } else {
       isFlying = false;
+    }
+  }
+  
+  float getPosition(boolean xPos){
+    if (xPos){
+      return xpos;
+    }
+    else{
+      return ypos; 
     }
   }
   
