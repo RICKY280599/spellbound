@@ -73,14 +73,18 @@ class WordList{
      }
      if (input.equalsIgnoreCase(easyWord)){
        System.out.println("easy complete");
+       wiz.updateEasyAttack();
+       spawner.handleEnemyDefeat(wiz.ypos);
        generateWord(true);
        input = "";
      }
      if (input.equalsIgnoreCase(hardWord)){
        System.out.println("hard complete");
+       wiz.updateHardAttack();
+       spawner.handleEnemyDefeat(wiz.ypos);
        generateWord(false);
        input = "";
      }
-   }
  }
+}
 }
