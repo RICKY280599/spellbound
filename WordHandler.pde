@@ -74,14 +74,14 @@ class WordList{
      if (input.equalsIgnoreCase(easyWord)){
        System.out.println("easy complete");
        wiz.updateEasyAttack();
-       spawner.handleEnemyDefeat(wiz.ypos);
+       spawner.handleEnemyDefeat(wiz.ypos, false);
        generateWord(true);
        input = "";
      }
      if (input.equalsIgnoreCase(hardWord)){
        System.out.println("hard complete");
        wiz.updateHardAttack();
-       spawner.handleEnemyDefeat(wiz.ypos);
+       spawner.handleEnemyDefeat(wiz.ypos, true);
        generateWord(false);
        input = "";
      }
