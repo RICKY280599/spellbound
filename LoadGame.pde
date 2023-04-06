@@ -49,7 +49,7 @@ class LoadGame{
     }
     textFont(NoOutlineFont, 20);
     fill(3, 252, 240);
-    text("Enemies Left: " + (enemyCount == -1 ? "inf." : enemyCount), (width - 180), 15);
+    text("Enemies Left: " + (enemyCount == -1 ? "inf." : enemyCount), (width - 330), 25);
     wiz.update();
   }
 }

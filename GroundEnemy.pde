@@ -11,6 +11,7 @@ class GroundEnemy implements Enemy {
   boolean alive;
   int frameNumber;
   boolean active = false;
+  boolean defeated;
 
   GroundEnemy(float enemyspeed) {
     enemyType = (int)random(1, 4);
@@ -133,7 +134,10 @@ class GroundEnemy implements Enemy {
   
   void updateDefeat() {
     alive = false;
+    updatePosition(spawner.speed);
+    active = false;
     frameNumber = frameCount;
+    spawner.minDistance = Float.MAX_VALUE;
   }
   
   float getYpos(){

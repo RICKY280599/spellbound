@@ -7,6 +7,7 @@ class FlyingEnemy implements Enemy {
   int frameNumber;
   float speed;
   boolean active = false;
+  boolean defeated = false;
 
   FlyingEnemy(float enemySpeed) {
     speed = enemySpeed;
@@ -61,7 +62,10 @@ class FlyingEnemy implements Enemy {
 
   void updateDefeat() {
     alive = false;
+    updatePosition(spawner.speed);
+    active = false;
     frameNumber = frameCount;
+    spawner.minDistance = Float.MAX_VALUE;
   }
   
   float getYpos(){

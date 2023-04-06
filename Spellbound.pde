@@ -23,7 +23,7 @@ Enemy enemy;
 
 //Variables to spawn enemies periodically
 int spawnTimer = 0;
-int spawnDelay = 300;
+int spawnDelay = 180;
 
 //Check if enemies arraylist has been initialized yet
 boolean enemiesInitialized;
@@ -123,11 +123,12 @@ void draw() {
      spawner.spawnEnemy();
      spawnTimer = 0;
     }
-    
     for (Enemy enemy : spawner.enemies) {
-      if (enemy.isActive()) {
-        enemy.updatePosition(spawner.speed);
+    if (enemy.isActive()) {
+      if(spawner.spawnedEnemies < spawner.enemyCount){
+      enemy.updatePosition(spawner.speed);
       }
+  }
     }
   }
   
@@ -243,7 +244,6 @@ void updateMenu() {
         System.out.println(wrds.getWord(false));
         hardMode = true;
         inMenu = false;
-        //spawner.EnemyInitializer(1.4, 50);
       }
       //Endless mode selected
       if(menuOption == 2){

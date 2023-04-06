@@ -5,12 +5,15 @@ public class EnemySpawner {
  int spawnTimer = 0;
  int spawnInterval = 300;
  int nextEnemyIndex = 0;
+ int spawnedEnemies;
+ float minDistance = Float.MAX_VALUE;
  
  public void EnemyInitializer(float enemyspeed, int enemyCount){
    for (int i = 0; i < enemyCount; i++){
       speed = enemyspeed;
       Enemy newEnemy;
-      if (random(0,2) < 1) {
+      this.enemyCount = enemyCount;
+      if (Math.random() < 0.5) {
         newEnemy = new GroundEnemy(enemyspeed); 
       } else {
         newEnemy = new FlyingEnemy(enemyspeed);
@@ -24,32 +27,37 @@ public class EnemySpawner {
    Enemy enemyToSpawn = enemies.get(nextEnemyIndex);
    enemyToSpawn.setActive(true);
    nextEnemyIndex++;
-   
-   for (Enemy enemy : enemies) {
-    if (enemy.isActive()) {
-      enemy.updatePosition(speed);
-   }
   }
- }
  }
   
   public void handleEnemyDefeat(float wizardYPosition){
-    Enemy closestEnemy = null;
-    float minDistance = Float.MAX_VALUE;
+   Enemy closestEnemy = null;
+  
    for (Enemy enemy : enemies) {
      if (enemy.getYpos() == wizardYPosition + 15 || enemy.getYpos() == wizardYPosition + 40) {
-      float distance = enemy.getXpos() - (-50);
-      
-      if (distance > 0 && distance < minDistance) {
+      float distance = enemy.getXpos();
+      if (distance > 100 && distance < minDistance) {
         minDistance = distance;
         closestEnemy = enemy;
+        }
+      }
+   }
+      if (closestEnemy != null) {
+        closestEnemy.updateDefeat();
+        enemies.remove(closestEnemy);
+        nextEnemyIndex = 0;
+        easy.enemyCount--;
      }
-  }
-}
+   }
+   
 
-if (closestEnemy != null){
- closestEnemy.updateDefeat();
- enemies.remove(closestEnemy);
-}
+public int getActiveEnemyCount() {
+  int activeCount = 0;
+  for (Enemy enemy : enemies) {
+    if (enemy.isActive()){
+     activeCount++; 
+    }
+  }
+  return activeCount;
 }
 }
