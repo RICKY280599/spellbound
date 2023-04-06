@@ -78,7 +78,7 @@ class WordList{
        wiz.updateEasyAttack();
        Spell spell = new Spell(true);
        spells.add(spell);
-       spawner.handleEnemyDefeat(wiz.ypos);
+       spawner.handleEnemyDefeat(wiz.ypos, false);
        generateWord(true);
        input = "";
      }

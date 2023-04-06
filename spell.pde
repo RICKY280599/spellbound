@@ -9,7 +9,7 @@ class Spell{
   Spell(boolean easy){
     if (easy){
       type = true;
-      animation = new SpriteSheet("Spells/water2.png", 5,4,120,4);
+      animation = new SpriteSheet("Spells/water2.png", 5,4,5,4);
       xPos = wiz.getPosition(true);
       yPos = wiz.getPosition(false);
       xSpeed = 0;
@@ -37,7 +37,7 @@ class Spell{
    xPos += xSpeed;
    display();
    frame++;
-   if (frame > 2250 && type){
+   if (frame > 90 && type){
     remove = true; 
    }
   }

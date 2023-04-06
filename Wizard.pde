@@ -70,6 +70,15 @@ class Wizard {
     }
   }
   
+  float getPosition(boolean xPos){
+    if (xPos){
+      return xpos;
+    }
+    else{
+      return ypos; 
+    }
+  }
+  
   void updateEasyAttack() {
     easyAttack = true;
     currentFrame = frameCount;
