@@ -47,6 +47,7 @@ public class EnemySpawner {
         enemies.remove(closestEnemy);
         nextEnemyIndex = 0;
         easy.enemyCount--;
+        hard.enemyCount--;
      }
    }
    
