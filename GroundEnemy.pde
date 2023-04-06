@@ -59,9 +59,7 @@ class GroundEnemy implements Enemy {
           displayAnimation("GoblinRun", xpos, ypos);
         }
       } else {
-        if (frameCount < frameNumber + 4) {
        displayAnimation("GoblinDeath", xpos, ypos);
-        }
       }
     } else if (isSkeleton) {
       if (alive) {
@@ -71,9 +69,7 @@ class GroundEnemy implements Enemy {
           displayAnimation("SkeletonWalk", xpos, ypos);
         }
       } else {
-        if (frameCount < frameNumber + 4) {
        displayAnimation("SkeletonDeath", xpos, ypos);
-        }
       }
     }
     else {
@@ -86,13 +82,11 @@ class GroundEnemy implements Enemy {
         }
        }
        else{
-         if (frameCount < frameNumber + 4) {
-       displayAnimation("MushroomDeath", xpos, ypos);
+         displayAnimation("MushroomDeath", xpos, ypos);
         }
        }
     }
  }
-  }
 
   // Displays animation based on where the enemy is, and whether they are attacking yet
   void displayAnimation(String action, float xp, float yp) {
@@ -105,6 +99,7 @@ class GroundEnemy implements Enemy {
         }
       } else {
         actions.get("GoblinDeath").display(xp, yp);
+        active = false;
       }
     } else if (isSkeleton) {
       if (alive) {
@@ -115,6 +110,7 @@ class GroundEnemy implements Enemy {
         }
       } else {
         actions.get("SkeletonDeath").display(xp, yp);
+        active = false;
       }
     }
     else {
@@ -128,6 +124,7 @@ class GroundEnemy implements Enemy {
        }
        else{
         actions.get("MushroomDeath").display(xpos,ypos); 
+        active = false;
        }
     }
   }
@@ -135,8 +132,6 @@ class GroundEnemy implements Enemy {
   void updateDefeat() {
     alive = false;
     updatePosition(spawner.speed);
-    active = false;
-    frameNumber = frameCount;
     spawner.minDistance = Float.MAX_VALUE;
   }
   

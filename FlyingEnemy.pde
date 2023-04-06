@@ -47,9 +47,8 @@ class FlyingEnemy implements Enemy {
       }
     } else {
       //stops after death animation is done
-      if (frameCount < frameNumber + 4) {
         displayAnimation("Death", xpos, ypos);
-      }
+        active = false;
     }
 
     // Updates the position of the sprite
@@ -63,9 +62,8 @@ class FlyingEnemy implements Enemy {
   void updateDefeat() {
     alive = false;
     updatePosition(spawner.speed);
-    active = false;
-    frameNumber = frameCount;
     spawner.minDistance = Float.MAX_VALUE;
+    frameNumber = frameCount;
   }
   
   float getYpos(){

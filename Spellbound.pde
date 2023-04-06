@@ -146,7 +146,9 @@ void draw() {
     
     for (Enemy enemy : spawner.enemies) {
       if (enemy.isActive()) {
-        enemy.updatePosition(spawner.speed);
+        if(spawner.spawnedEnemies < spawner.enemyCount) {
+         enemy.updatePosition(spawner.speed); 
+        }
       }
     }
   }
