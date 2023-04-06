@@ -49,7 +49,17 @@ class LoadGame{
     }
     textFont(NoOutlineFont, 20);
     fill(3, 252, 240);
-    text("Enemies Left: " + (enemyCount == -1 ? "inf." : enemyCount), (width - 330), 25);
+    text("Enemies Left: " + (spawner.enemyCount), (width - 330), 25);
     wiz.update();
+    
+    if (easyMode && spawner.enemyCount == 0){
+     text(("Easy Mode Complete!"), 10, 25);
+    }
+    if (hardMode && spawner.enemyCount == 0){
+     text(("Hard Mode Complete!"), 10, 25);
+    }
+    if (endlessMode){
+     text(("Wave: " + (spawner.wave-1)), 10, 25);
+    }
   }
 }

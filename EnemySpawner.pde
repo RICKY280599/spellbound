@@ -7,6 +7,8 @@ public class EnemySpawner {
  int nextEnemyIndex = 0;
  int spawnedEnemies;
  float minDistance = Float.MAX_VALUE;
+ int wave = 1;
+ boolean spawnNewWave = true;
  
  public void EnemyInitializer(float enemyspeed, int enemyCount){
    for (int i = 0; i < enemyCount; i++){
@@ -46,8 +48,11 @@ public class EnemySpawner {
         closestEnemy.updateDefeat();
         enemies.remove(closestEnemy);
         nextEnemyIndex = 0;
-        easy.enemyCount--;
-        hard.enemyCount--;
+        enemyCount--;
+        
+        if (endlessMode && enemies.size() == 0) {
+         spawnNewWave = true; 
+        }
      }
    }
    
@@ -60,5 +65,14 @@ public int getActiveEnemyCount() {
     }
   }
   return activeCount;
+}
+
+public void spawnWave() {
+ int enemyCount = (wave * 10);
+ float enemySpeed = 1.0 + (0.05 * wave);
+ 
+ EnemyInitializer(enemySpeed, enemyCount);
+ nextEnemyIndex = 0;
+ spawnNewWave = false;
 }
 }

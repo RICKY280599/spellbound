@@ -23,7 +23,7 @@ Enemy enemy;
 
 //Variables to spawn enemies periodically
 int spawnTimer = 0;
-int spawnDelay = 180;
+int spawnDelay = 120;
 
 //Check if enemies arraylist has been initialized yet
 boolean enemiesInitialized;
@@ -43,6 +43,7 @@ int menuOption = 0;
 LoadGame easy;
 LoadGame hard;
 LoadGame endless;
+public int gamesWon;
 
 void setup() {
   size(900, 600);
@@ -114,8 +115,8 @@ void draw() {
     wrds.display();
     //Check if enemies are initialized every loop
     if (!enemiesInitialized){
-      //Enemies are speed 1.0, 25 count
-     spawner.EnemyInitializer(1.0, 25); 
+      //Enemies are speed 1.3, 25 count
+     spawner.EnemyInitializer(1.3, 25); 
      enemiesInitialized = true;
     }
     //Spawn enemies every 5 seconds
@@ -136,7 +137,7 @@ void draw() {
     hard.display();
     wrds.display();
     if (!enemiesInitialized){
-     spawner.EnemyInitializer(1.3, 50); 
+     spawner.EnemyInitializer(1.5, 50); 
      enemiesInitialized = true;
     }
     if(spawnTimer >= spawnDelay){
@@ -156,7 +157,20 @@ void draw() {
   if(endlessMode){
     endless.display();
     wrds.display();
-    //Still need to add enemy spawning here
+    if (spawner.getActiveEnemyCount() == 0 && spawner.spawnNewWave) {
+     spawner.spawnWave();
+     spawner.wave++;
+    }
+    if (spawnTimer >= spawnDelay) {
+     spawner.spawnEnemy(); 
+     spawnTimer = 0;
+    }
+    
+    for (Enemy enemy : spawner.enemies) {
+      if (enemy.isActive()) {
+       enemy.updatePosition(spawner.speed); 
+      }
+    }
   }
   spawnTimer++;
 }
