@@ -7,6 +7,8 @@ class LoadGame{
   float barrierHP, enemySpeed;
   int enemyCount;
   
+  Barrier barrier;
+  
   
   //Sets and loads appropriate difficulty level chosen by player.
   LoadGame(int difficulty){
@@ -21,6 +23,8 @@ class LoadGame{
       String[] temp = {"Backgrounds/EasySky/1.png", "Backgrounds/EasySky/2.png", "Backgrounds/EasySky/3.png", "Backgrounds/EasySky/4.png"};
       backgrnd = new Background(temp, false);
       
+      //Sets the barrier HP to 50
+      barrier = new Barrier(50);
     }
     if(difficulty == 1){
       hard = true;
@@ -29,6 +33,8 @@ class LoadGame{
       String[] temp = {"Backgrounds/HardSky/1.png", "Backgrounds/HardSky/2.png", "Backgrounds/HardSky/3.png", "Backgrounds/HardSky/4.png"};
       backgrnd = new Background(temp, false);
       
+      //Sets the barrier HP to 50
+      barrier = new Barrier(50);
     }
     if(difficulty == 2){
       endless = true;
@@ -36,6 +42,9 @@ class LoadGame{
       //TODO: Set appropriate enemy speed.
       String[] temp = {"Backgrounds/EndlessSky/1.png", "Backgrounds/EndlessSky/2.png", "Backgrounds/EndlessSky/3.png", "Backgrounds/EndlessSky/4.png"};
       backgrnd = new Background(temp, false);
+      
+      //Sets the barrier HP to 50
+      barrier = new Barrier(50);
     }
   }
     
@@ -43,6 +52,7 @@ class LoadGame{
   void display(){
     backgrnd.display();
     layout.display();
+    barrier.display();
     stroke(0);
     for(int i = 25; i < height; i += 100){
       line(0, i, width, i);

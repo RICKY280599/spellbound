@@ -3,7 +3,7 @@
  John McGraw
  Ricardo Sanchez
  Christian Mosey
-*/
+ */
 import java.util.*;
 import processing.sound.*;
 
@@ -46,6 +46,9 @@ LoadGame hard;
 LoadGame endless;
 public int gamesWon;
 
+//Barrier variables
+int barrierEnemyCount;
+
 void setup() {
   size(900, 600);
   inMenu = true;
@@ -53,11 +56,11 @@ void setup() {
   NoOutlineFont = createFont("Fonts/NoOutlineMain.ttf", 30);
   textFont(OutlineFont);
   textAlign(CENTER, CENTER);
-  
+
   easy = new LoadGame(0);
   hard = new LoadGame(1);
   endless = new LoadGame(2);
-  
+
   //Load darkSky animated background for main menu, its music and soundFX
   String[] temp = {"Backgrounds/DarkSky/1.png", "Backgrounds/DarkSky/2.png", "Backgrounds/DarkSky/3.png", "Backgrounds/DarkSky/4.png"};
   darkSky = new Background(temp, true);
@@ -71,120 +74,174 @@ void setup() {
   //WordList words = WordList(easyList);
   //Load Wizard object
   wiz = new Wizard();
-  
+
   wrds = new WordList();
   wrds.setLists(easyList, hardList);
   spawner = new EnemySpawner();
 }
 
-void playFail(){
- fail.play();
+void playFail() {
+  fail.play();
 }
 
-void handleEasyList(){
+void handleEasyList() {
   String[] tempStr = loadStrings("WordList/easyWordList.txt");
-  for (String line : tempStr){
-   easyList.addAll(Arrays.asList(line.split(",")));  
+  for (String line : tempStr) {
+    easyList.addAll(Arrays.asList(line.split(",")));
   }
-  for(String word : easyList){
-   //System.out.println(word); 
+  for (String word : easyList) {
+    //System.out.println(word);
   }
-  //System.out.println(easyList.size()); 
+  //System.out.println(easyList.size());
 }
-void handleHardList(){
+void handleHardList() {
   String[] tempStr = loadStrings("WordList/hardWordList.txt");
-  for (String line : tempStr){
-   hardList.addAll(Arrays.asList(line.split(",")));  
+  for (String line : tempStr) {
+    hardList.addAll(Arrays.asList(line.split(",")));
   }
-  for(String word : easyList){
-   //System.out.println(word); 
+  for (String word : easyList) {
+    //System.out.println(word);
   }
-  //System.out.println(easyList.size()); 
+  //System.out.println(easyList.size());
 }
 
 void draw() {
-  
+  //resets active enemies to 0 so it can be checked again each loop
+  barrierEnemyCount = 0;
+
   if (inMenu) {
     if (!menuMusic.isPlaying()) {
       menuMusic.loop();
     }
     loadMenu();
   }
-  
-  if(easyMode){
-    easy.display();
-    wrds.display();
-    //Check if enemies are initialized every loop
-    if (!enemiesInitialized){
-      //Enemies are speed 1.3, 25 count
-     spawner.EnemyInitializer(1.3, 25); 
-     enemiesInitialized = true;
-    }
-    //Spawn enemies every 5 seconds
-    if(spawnTimer >= spawnDelay){
-     spawner.spawnEnemy();
-     spawnTimer = 0;
-    }
-    for (Enemy enemy : spawner.enemies) {
-    if (enemy.isActive()) {
-      if(spawner.spawnedEnemies < spawner.enemyCount){
-      enemy.updatePosition(spawner.speed);
+
+  if (easyMode) {
+    if (easy.barrier.gameOver == false) {
+      easy.display();
+      wrds.display();
+      //Check if enemies are initialized every loop
+      if (!enemiesInitialized) {
+        //Enemies are speed 1.3, 25 count
+        spawner.EnemyInitializer(1.3, 25);
+        enemiesInitialized = true;
       }
-     }
-    }
-  
-    Iterator<Spell> itr = spells.iterator();
-    //System.out.print(spells.size());
-    while (itr.hasNext()){
-      Spell spell = itr.next();
-      if (spell.getRemove()){
-        itr.remove();
-      } 
-      else{
-       spell.updatePosition();
+      //Spawn enemies every 5 seconds
+      if (spawnTimer >= spawnDelay) {
+        spawner.spawnEnemy();
+        spawnTimer = 0;
       }
-    }
-  }
-  
-  if(hardMode){
-    hard.display();
-    wrds.display();
-    if (!enemiesInitialized){
-     spawner.EnemyInitializer(1.5, 50); 
-     enemiesInitialized = true;
-    }
-    if(spawnTimer >= spawnDelay){
-     spawner.spawnEnemy();
-     spawnTimer = 0;
-    }
-    
-    for (Enemy enemy : spawner.enemies) {
-      if (enemy.isActive()) {
-        if(spawner.spawnedEnemies < spawner.enemyCount) {
-         enemy.updatePosition(spawner.speed); 
+      //counts the total number of active enemies at the barrier
+      for (Enemy enemy : spawner.enemies) {
+        if (enemy.isActive() && enemy.getXpos() <= 100) {
+          barrierEnemyCount++;
         }
       }
+      
+      for (Enemy enemy : spawner.enemies) {
+        if (enemy.isActive()) {
+          if (spawner.spawnedEnemies < spawner.enemyCount) {
+            enemy.updatePosition(spawner.speed);
+          }
+          //Causes HP to decrease if an enemy is at the barrier (every 1 second or frameCount % frameRate == 0 assuming frameRate is always at a constant 60)
+          if (enemy.getXpos() <= 100 && frameCount % 60 == 0) {
+            easy.barrier.originalHealthLength -= easy.barrier.decrementValue * barrierEnemyCount;
+          }
+        }
+      }
+
+      Iterator<Spell> itr = spells.iterator();
+      //System.out.print(spells.size());
+      while (itr.hasNext()) {
+        Spell spell = itr.next();
+        if (spell.getRemove()) {
+          itr.remove();
+        } else {
+          spell.updatePosition();
+        }
+      }
+    } else {
+      //TEMPORARY game over screen
+      background(0);
+      textSize(50);
+      text("You lost!", width/2 - 250, height/2);
+    }
+  }
+
+  if (hardMode) {
+    if (hard.barrier.gameOver == false) {
+      hard.display();
+      wrds.display();
+      if (!enemiesInitialized) {
+        spawner.EnemyInitializer(1.5, 50);
+        enemiesInitialized = true;
+      }
+      if (spawnTimer >= spawnDelay) {
+        spawner.spawnEnemy();
+        spawnTimer = 0;
+      }
+      //counts the total number of active enemies at the barrier
+      for (Enemy enemy : spawner.enemies) {
+        if (enemy.isActive() && enemy.getXpos() <= 100) {
+          barrierEnemyCount++;
+        }
+      }
+
+      for (Enemy enemy : spawner.enemies) {
+        if (enemy.isActive()) {
+          if (spawner.spawnedEnemies < spawner.enemyCount) {
+            enemy.updatePosition(spawner.speed);
+          }
+          //Causes HP to decrease if an enemy is at the barrier (every 1 second or frameCount % frameRate == 0 assuming frameRate is always at a constant 60)
+          if (enemy.getXpos() <= 100 && frameCount % 60 == 0) {
+            hard.barrier.originalHealthLength -= hard.barrier.decrementValue * barrierEnemyCount;
+          }
+        }
+      }
+    } else {
+      //TEMPORARY game over screen
+      background(0);
+      textSize(50);
+      text("You lost!", width/2 - 250, height/2);
+    }
+  }
+
+  if (endlessMode) {
+    if (endless.barrier.gameOver == false) {
+      endless.display();
+      wrds.display();
+      if (spawner.getActiveEnemyCount() == 0 && spawner.spawnNewWave) {
+        spawner.spawnWave();
+        spawner.wave++;
+      }
+      if (spawnTimer >= spawnDelay) {
+        spawner.spawnEnemy();
+        spawnTimer = 0;
+      }
+      //counts the total number of active enemies at the barrier
+      for (Enemy enemy : spawner.enemies) {
+        if (enemy.isActive() && enemy.getXpos() <= 100) {
+          barrierEnemyCount++;
+        }
+      }
+
+      for (Enemy enemy : spawner.enemies) {
+        if (enemy.isActive()) {
+          enemy.updatePosition(spawner.speed);
+          //Causes HP to decrease if an enemy is at the barrier (every 1 second or frameCount % frameRate == 0 assuming frameRate is always at a constant 60)
+          if (enemy.getXpos() <= 100 && frameCount % 60 == 0) {
+            endless.barrier.originalHealthLength -= endless.barrier.decrementValue * barrierEnemyCount;
+          }
+        }
+      }
+    } else {
+      //TEMPORARY game over screen
+      background(0);
+      textSize(50);
+      text("You lost!", width/2 - 250, height/2);
     }
   }
   
-  if(endlessMode){
-    endless.display();
-    wrds.display();
-    if (spawner.getActiveEnemyCount() == 0 && spawner.spawnNewWave) {
-     spawner.spawnWave();
-     spawner.wave++;
-    }
-    if (spawnTimer >= spawnDelay) {
-     spawner.spawnEnemy(); 
-     spawnTimer = 0;
-    }
-    
-    for (Enemy enemy : spawner.enemies) {
-      if (enemy.isActive()) {
-       enemy.updatePosition(spawner.speed); 
-      }
-    }
-  }
   spawnTimer++;
 }
 
@@ -218,7 +275,7 @@ void keyPressed() {
   if (inMenu) {
     updateMenu();
   }
-  
+
   if (easyMode || hardMode || endlessMode) {
     wiz.updatePosition();
     wrds.update();
@@ -252,24 +309,24 @@ void updateMenu() {
         menuOption--;
       }
     }
-    if(key == ENTER){
+    if (key == ENTER) {
       menuSelection.play();
       //Easy mode selected
-      if(menuOption == 0){
+      if (menuOption == 0) {
         wrds.generateWord(true);
         wrds.generateWord(false);
         easyMode = true;
         inMenu = false;
       }
       //Hard mode selected
-      if(menuOption == 1){
+      if (menuOption == 1) {
         wrds.generateWord(true);
         wrds.generateWord(false);
         hardMode = true;
         inMenu = false;
       }
       //Endless mode selected
-      if(menuOption == 2){
+      if (menuOption == 2) {
         wrds.generateWord(true);
         wrds.generateWord(false);
         endlessMode = true;

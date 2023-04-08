@@ -39,7 +39,7 @@ class FlyingEnemy implements Enemy {
     //checks first to see if the enemy had not been defeated
    if (active) {
     if (alive) {
-      if (xpos > 105) {
+      if (xpos > 100) {
         displayAnimation("Flight", xpos, ypos);
       } else {
         //starts attacking when at the barrier
