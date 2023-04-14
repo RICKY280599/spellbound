@@ -10,7 +10,7 @@ public class EnemySpawner {
  float minDistance = 300;
  int wave = 1;
  boolean spawnNewWave = true;
- int hardDistance = 900;
+ float hardDistance = 900;
  
  public void EnemyInitializer(float enemyspeed, int enemyCount){
    for (int i = 0; i < enemyCount; i++){
@@ -66,10 +66,13 @@ public class EnemySpawner {
       float distance = enemy.getXpos();
        if (distance > 0 && distance < hardDistance){
         closestEnemy = enemy;
-        distance = hardDistance;
+        hardDistance = distance;
        }
      }
    }
+   
+   hardDistance = 900;
+        
         if (closestEnemy != null) {
         closestEnemy.updateDefeat();
         enemies.remove(closestEnemy);
