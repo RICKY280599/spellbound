@@ -35,10 +35,10 @@ FlyingEnemy eyeEnemy;
 Background darkSky;
 
 //Booleans used to determine game state
-boolean inMenu, easyMode, hardMode, endlessMode, start;
+boolean inMenu, easyMode, hardMode, endlessMode, start, gameOver;
 
 //int used to track option hovered by player (since game only uses keyboard input)
-int menuOption = 0;
+int menuOption = 0, overMenuOption = 0;
 
 //LoadGame objects to load respective difficulty game objects
 LoadGame easy;
@@ -117,9 +117,8 @@ void draw() {
   }
 
   if (easyMode) {
-    if (easy.barrier.gameOver == false) {
       easy.display();
-      wrds.display();
+    if (easy.barrier.gameOver == false) {
       //Check if enemies are initialized every loop
       if (!enemiesInitialized) {
         //Enemies are speed 1.3, 25 count
@@ -161,17 +160,13 @@ void draw() {
         }
       }
     } else {
-      //TEMPORARY game over screen
-      background(0);
-      textSize(50);
-      text("You lost!", width/2 - 250, height/2);
+      gameOver = true;
     }
   }
 
   if (hardMode) {
+    hard.display();
     if (hard.barrier.gameOver == false) {
-      hard.display();
-      wrds.display();
       if (!enemiesInitialized) {
         spawner.EnemyInitializer(1.5, 50);
         enemiesInitialized = true;
@@ -199,17 +194,13 @@ void draw() {
         }
       }
     } else {
-      //TEMPORARY game over screen
-      background(0);
-      textSize(50);
-      text("You lost!", width/2 - 250, height/2);
+      gameOver = true;
     }
   }
 
   if (endlessMode) {
+    endless.display();
     if (endless.barrier.gameOver == false) {
-      endless.display();
-      wrds.display();
       if (spawner.getActiveEnemyCount() == 0 && spawner.spawnNewWave) {
         spawner.spawnWave();
         spawner.wave++;
@@ -235,10 +226,7 @@ void draw() {
         }
       }
     } else {
-      //TEMPORARY game over screen
-      background(0);
-      textSize(50);
-      text("You lost!", width/2 - 250, height/2);
+      gameOver = true;
     }
   }
   
@@ -279,6 +267,10 @@ void keyPressed() {
   if (easyMode || hardMode || endlessMode) {
     wiz.updatePosition();
     wrds.update();
+  }
+  
+  if(gameOver){
+    gameOverMenuUpdate();
   }
 }
 
@@ -332,6 +324,27 @@ void updateMenu() {
         endlessMode = true;
         inMenu = false;
       }
+    }
+  }
+}
+
+void gameOverMenuUpdate(){
+  if (key == CODED) {
+    if (keyCode == RIGHT) {
+      if (overMenuOption < 2) {
+        overMenuOption++;
+      }
+    }
+    if (keyCode == LEFT) {
+      if (overMenuOption > 0) {
+        overMenuOption--;
+      }
+    }
+  }
+  
+  if(key == ENTER){
+    if(overMenuOption == 2){
+      exit();
     }
   }
 }
