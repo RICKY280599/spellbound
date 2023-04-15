@@ -16,6 +16,15 @@ class Spell{
       frame = 0;
       remove = false;
     }
+    else{
+      type = false;
+      animation = new SpriteSheet("Spells/ice.png", 8,3, 2);
+      xPos = wiz.getPosition(true);
+      yPos = wiz.getPosition(false);
+      xSpeed = 12;
+      frame = 0;
+      remove = false;
+    }
   }
   void display(){
     if (type){
@@ -25,7 +34,9 @@ class Spell{
       animation.display(xPos + 150, yPos - 70);
     }
     else{
-      
+      if (frame > 20){
+        animation.display(xPos + 150, yPos + 20);
+      }
     }
   }
   
@@ -34,9 +45,38 @@ class Spell{
   }
   
   void updatePosition(){
-   xPos += xSpeed;
+   if (frame > 20 && !type){
+     xPos += xSpeed;
+   }
+   if (!type){
+     Iterator<Enemy> itr = spawner.enemies.iterator();
+      //System.out.print(spells.size());
+      while (itr.hasNext()) {
+        Enemy enemy = itr.next();
+        if (enemy.isActive()) {
+          if (enemy.getXpos() > xPos-80 && enemy.getXpos() < xPos+160 && enemy.getYpos() > yPos-20 && enemy.getYpos() < yPos+60) {
+           enemy.updateDefeat();
+           itr.remove();
+           spawner.removeEnemy();
+           animation = new SpriteSheet("Spells/iceEffect.png", 26, 4, 4);
+           yPos = yPos - 20;
+           xPos = xPos + 15;
+           xSpeed = 0;
+           frame = 1000;
+          }
+        }
+      }
+   }
    display();
    frame++;
+   if (!type && xPos > 1000){
+    remove = true;
+    System.out.println("removed");
+   }
+   if (!type && frame > 1050){
+    remove = true; 
+   }
+   
    if (frame > 90 && type){
     remove = true; 
    }

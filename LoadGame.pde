@@ -15,7 +15,6 @@ class LoadGame{
     
     barrierHP = 10;
     layout = new Layout();
-    gameOver = false;
      
     if(difficulty == 0){
       easy = true;
@@ -51,52 +50,26 @@ class LoadGame{
     
   
   void display(){
-    if(!gameOver){
-      backgrnd.display();
-      layout.display();
-      barrier.display();
-      wrds.display();
-      stroke(0);
-      for(int i = 25; i < height; i += 100){
-        line(0, i, width, i);
-      }
-      textFont(NoOutlineFont, 20);
-      fill(3, 252, 240);
-      text("Enemies Left: " + (spawner.enemyCount), (width - 330), 25);
-      wiz.update();
-      
-      if (easyMode && spawner.enemyCount == 0){
-       text(("Easy Mode Complete!"), 10, 25);
-       gameOver = true;
-      }
-      if (hardMode && spawner.enemyCount == 0){
-       text(("Hard Mode Complete!"), 10, 25);
-       gameOver = true;
-      }
-      if (endlessMode){
-       text(("Wave: " + (spawner.wave-1)), 10, 25);
-      }
+    backgrnd.display();
+    layout.display();
+    barrier.display();
+    stroke(0);
+    //for(int i = 25; i < height; i += 100){
+    //  line(0, i, width, i);
+    //}
+    textFont(NoOutlineFont, 20);
+    fill(3, 252, 240);
+    text("Enemies Left: " + (spawner.enemyCount), (width - 330), 25);
+    wiz.update();
+    
+    if (easyMode && spawner.enemyCount == 0){
+     text(("Easy Mode Complete!"), 10, 25);
     }
-    else{
-      background(0);
-      fill(3, 252, 240);
-      textFont(NoOutlineFont, 60);
-      text("GAME OVER", (width/2) - (width/4) - 30, height/2);
-      textFont(NoOutlineFont, 20);
-      text("TRY AGAIN", (width/3) - (width/6) - 95, height-150);
-      text("MAIN MENU", 2*(width/3) - (width/6) - 95, height-150);
-      text("EXIT GAME", 3*(width/3) - (width/6) - 95, height-150);
-      
-      if (overMenuOption == 0) {
-        fill(179, 2, 166);
-        text("TRY AGAIN", (width/3) - (width/6) - 95, height-150);
-      } else if (overMenuOption == 1) {
-        fill(179, 2, 166);
-        text("MAIN MENU", 2*(width/3) - (width/6) - 95, height-150);
-      } else if (overMenuOption == 2) {
-        fill(179, 2, 166);
-        text("EXIT GAME", 3*(width/3) - (width/6) - 95, height-150);
-      }
+    if (hardMode && spawner.enemyCount == 0){
+     text(("Hard Mode Complete!"), 10, 25);
+    }
+    if (endlessMode){
+     text(("Wave: " + (spawner.wave-1)), 10, 25);
     }
   }
 }

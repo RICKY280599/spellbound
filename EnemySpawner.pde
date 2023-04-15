@@ -1,7 +1,7 @@
 public class EnemySpawner {
  ArrayList<Enemy> enemies = new ArrayList<>();
  float speed;
- int enemyCount = -1;
+ int enemyCount;
  int spawnTimer = 0;
  int spawnInterval = 300;
  int nextEnemyIndex = 0;
@@ -60,7 +60,7 @@ public class EnemySpawner {
         }
      }
    }
-  }else {
+  }/*else {
    for (Enemy enemy : enemies) {
      if (enemy.getYpos() == wizardYPosition + 15 || enemy.getYpos() == wizardYPosition + 40) {
       float distance = enemy.getXpos();
@@ -84,7 +84,7 @@ public class EnemySpawner {
 
      }
    }
-  }
+  }*/
   }
    
 
@@ -96,6 +96,15 @@ public int getActiveEnemyCount() {
     }
   }
   return activeCount;
+}
+
+public void removeEnemy(){
+   nextEnemyIndex = 0;
+   enemyCount--;
+        
+   if (endlessMode && enemies.size() == 0) {
+     spawnNewWave = true;
+   }
 }
 
 public void spawnWave() {
