@@ -1,7 +1,7 @@
 public class EnemySpawner {
  ArrayList<Enemy> enemies = new ArrayList<>();
  float speed;
- int enemyCount;
+ int enemyCount = -1;
  int spawnTimer = 0;
  int spawnInterval = 300;
  int nextEnemyIndex = 0;
