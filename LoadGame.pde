@@ -77,7 +77,9 @@ class LoadGame{
        win = true;
       }
       if (endlessMode){
-       text(("Wave: " + (spawner.wave-1)), 10, 25);
+       fill(#E33E3E);
+       text(("Wave: " + (spawner.wave-1)), 730, 55);
+       fill(3, 252, 240);
       }
     }
     else{
