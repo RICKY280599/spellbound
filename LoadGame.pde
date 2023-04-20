@@ -6,6 +6,7 @@ class LoadGame{
   Layout layout;
   float barrierHP, enemySpeed;
   int enemyCount;
+  boolean win = false;
   
   Barrier barrier;
   
@@ -68,10 +69,12 @@ class LoadGame{
       if (easyMode && spawner.enemyCount == 0){
        //text(("Easy Mode Complete!"), 10, 25);
        gameOver = true;
+       win = true;
       }
       if (hardMode && spawner.enemyCount == 0){
        //text(("Hard Mode Complete!"), 10, 25);
        gameOver = true;
+       win = true;
       }
       if (endlessMode){
        text(("Wave: " + (spawner.wave-1)), 10, 25);
@@ -81,15 +84,19 @@ class LoadGame{
       background(0);
       fill(3, 252, 240);
       textFont(NoOutlineFont, 60);
+      if (win == true){
+      text("YOU WIN!", (width/2) - (width/4) - 30, height/2);
+      } else {
       text("GAME OVER", (width/2) - (width/4) - 30, height/2);
+      }
       textFont(NoOutlineFont, 20);
-      text("TRY AGAIN", (width/3) - (width/6) - 95, height-150);
+      text("PLAY AGAIN", (width/3) - (width/6) - 95, height-150);
       text("MAIN MENU", 2*(width/3) - (width/6) - 95, height-150);
       text("EXIT GAME", 3*(width/3) - (width/6) - 95, height-150);
 
       if (overMenuOption == 0) {
         fill(179, 2, 166);
-        text("TRY AGAIN", (width/3) - (width/6) - 95, height-150);
+        text("PLAY AGAIN", (width/3) - (width/6) - 95, height - 150); 
       } else if (overMenuOption == 1) {
         fill(179, 2, 166);
         text("MAIN MENU", 2*(width/3) - (width/6) - 95, height-150);

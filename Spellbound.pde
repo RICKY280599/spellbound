@@ -255,6 +255,7 @@ void draw() {
 
 void loadMenu() {
   darkSky.display();
+  textAlign(CENTER, CENTER);
   wiz.display("Idle", 340, 100);
 
   fill(222, 2, 207);
@@ -365,6 +366,42 @@ void gameOverMenuUpdate(){
   if(key == ENTER){
     if(overMenuOption == 2){
       exit();
+    } else if (overMenuOption == 1){
+      resetGame();
+      inMenu = true;
+      easyMode = false; 
+      hardMode = false;
+      endlessMode = false;
+      
+    } else if (overMenuOption == 0 && easyMode){
+     resetGame();
+     easy.display();
+     wrds.display();
+     wrds.update();
+     
+    } else if (overMenuOption == 0 && hardMode){
+     resetGame();
+     hard.display();
+     wrds.display();
+     wrds.update();
+     
+    } else if (overMenuOption == 0 && endlessMode) {
+     resetGame();
+     endless.display();
+     wrds.display();
+     wrds.update();
     }
+    
   }
+}
+
+void resetGame(){
+ gameOver = false;
+ easy = new LoadGame(0);
+ hard = new LoadGame(1);
+ endless = new LoadGame(2);
+ wrds = new WordList();
+ wrds.setLists(easyList, hardList);
+ spawner = new EnemySpawner();
+ enemiesInitialized = false;
 }
