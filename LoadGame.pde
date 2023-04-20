@@ -83,12 +83,13 @@ class LoadGame{
       }
     }
     else{
-      background(0);
       fill(3, 252, 240);
       textFont(NoOutlineFont, 60);
       if (win == true){
+      background(#B6B7C6);
       text("YOU WIN!", (width/2) - (width/4) - 30, height/2);
       } else {
+      background(0);
       text("GAME OVER", (width/2) - (width/4) - 30, height/2);
       }
       textFont(NoOutlineFont, 20);
