@@ -25,7 +25,7 @@ class LoadGame{
       enemyCount = 25;
       enemySpeed = 1.0;
       String[] temp = {"Backgrounds/EasySky/1.png", "Backgrounds/EasySky/2.png", "Backgrounds/EasySky/3.png", "Backgrounds/EasySky/4.png"};
-      backgrnd = new Background(temp, false);
+      backgrnd = new Background(temp, true, 0.25);
       
       //Sets the barrier HP to 50
       barrier = new Barrier(50);
@@ -35,7 +35,7 @@ class LoadGame{
       enemyCount = 50;
       //TODO: Set appropriate enemy speed.
       String[] temp = {"Backgrounds/HardSky/1.png", "Backgrounds/HardSky/2.png", "Backgrounds/HardSky/3.png", "Backgrounds/HardSky/4.png"};
-      backgrnd = new Background(temp, false);
+      backgrnd = new Background(temp, true, 0.25);
       
       //Sets the barrier HP to 50
       barrier = new Barrier(50);
@@ -45,7 +45,7 @@ class LoadGame{
       enemyCount = -1;
       //TODO: Set appropriate enemy speed.
       String[] temp = {"Backgrounds/EndlessSky/1.png", "Backgrounds/EndlessSky/2.png", "Backgrounds/EndlessSky/3.png", "Backgrounds/EndlessSky/4.png"};
-      backgrnd = new Background(temp, false);
+      backgrnd = new Background(temp, true, 0.25);
       
       //Sets the barrier HP to 50
       barrier = new Barrier(50);

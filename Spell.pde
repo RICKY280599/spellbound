@@ -15,6 +15,7 @@ class Spell {
       xSpeed = 0;
       frame = 0;
       remove = false;
+      playWaterCast();
     }
     else{
       type = false;
@@ -24,6 +25,7 @@ class Spell {
       xSpeed = 12;
       frame = 0;
       remove = false;
+      playIceCast();
     }
   }
   void display(){
@@ -58,6 +60,7 @@ class Spell {
            enemy.updateDefeat();
            itr.remove();
            spawner.removeEnemy();
+           playIceHit();
            animation = new SpriteSheet("Spells/iceEffect.png", 26, 4, 1);
            yPos = yPos - 20;
            xPos = xPos + 15;

@@ -11,8 +11,7 @@ import processing.sound.*;
 Boolean fps;
 PImage menu;
 PFont OutlineFont, NoOutlineFont;
-SoundFile menuMusic, menuSelection;
-public SoundFile fail;
+SoundFile menuMusic, menuSelection, fail, iceHit, iceCast, waterCast;
 Wizard wiz;
 WordList wrds;
 List<String> easyList = new ArrayList();
@@ -52,7 +51,7 @@ int barrierEnemyCount;
 
 void setup() {
   fps = false;
-  size(900, 600);
+  size(900, 600, P2D);
   inMenu = true;
   OutlineFont = createFont("Fonts/OutlineMain.ttf", 85);
   NoOutlineFont = createFont("Fonts/NoOutlineMain.ttf", 30);
@@ -65,11 +64,15 @@ void setup() {
 
   //Load darkSky animated background for main menu, its music and soundFX
   String[] temp = {"Backgrounds/DarkSky/1.png", "Backgrounds/DarkSky/2.png", "Backgrounds/DarkSky/3.png", "Backgrounds/DarkSky/4.png"};
-  darkSky = new Background(temp, true);
+  darkSky = new Background(temp, true, 0.5);
   menuMusic = new SoundFile(this, "Music/arcade_acadia.wav");
   menuMusic.amp(0.7);
   menuSelection = new SoundFile(this, "SoundFX/MenuSelection.wav");
   fail = new SoundFile(this, "SoundFX/fail.wav");
+  iceHit = new SoundFile(this, "SoundFX/iceHit.wav");
+  iceCast = new SoundFile(this, "SoundFX/iceCast.wav");
+  waterCast = new SoundFile(this, "SoundFX/waterCast.wav");
+  iceHit.amp(0.4);
   fail.amp(0.4);
   handleEasyList();
   handleHardList();
@@ -84,6 +87,18 @@ void setup() {
 
 void playFail() {
   fail.play();
+}
+
+void playIceHit(){
+  iceHit.play();
+}
+
+void playWaterCast(){
+  waterCast.play();
+}
+
+void playIceCast(){
+ iceCast.play(); 
 }
 
 void handleEasyList() {
@@ -275,10 +290,8 @@ void loadMenu() {
 }
 
 void keyPressed() {
-  if (key == CODED){
-    if (keyCode == 123){
-     fps = !fps;
-    }
+  if (key == '`'){
+    fps = !fps;
   }
   
   if (inMenu) {
