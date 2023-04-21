@@ -37,18 +37,21 @@ class WordList{
     textAlign(LEFT);
     fill(3, 252, 240);
     PImage easyIcon = loadImage("spells/waterIcon.png");
+    PImage hardIcon = loadImage("spells/iceIcon.png");
     easyIcon.resize(50,50);
+    hardIcon.resize(50,50);
     image(easyIcon, 75, 535);
+    image(hardIcon, 425, 535);
     PImage easyIconFrame = loadImage("spells/waterIconFrame.png");
     easyIconFrame.resize(50,50);
     image(easyIconFrame, 75, 535);
+    image(easyIconFrame, 425, 535);
     text(getWord(true),150,570);
     if (currentWord == 0 || currentWord == 2){
       fill(179, 2, 166);
       text(input,150,570);
     }
     fill(3, 252, 240);
-    square(425, 535, 50);
     text(getWord(false),500,570); 
     if (currentWord == 1 || currentWord == 2){
       fill(179, 2, 166);
