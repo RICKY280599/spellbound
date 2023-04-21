@@ -38,12 +38,12 @@ class WordList{
     fill(3, 252, 240);
     PImage easyIcon = loadImage("spells/waterIcon.png");
     PImage hardIcon = loadImage("spells/iceIcon.png");
-    easyIcon.resize(50,50);
-    hardIcon.resize(50,50);
+    //easyIcon.resize(50,50);
+    //hardIcon.resize(50,50);
     image(easyIcon, 75, 535);
     image(hardIcon, 425, 535);
     PImage easyIconFrame = loadImage("spells/waterIconFrame.png");
-    easyIconFrame.resize(50,50);
+    //easyIconFrame.resize(50,50);
     image(easyIconFrame, 75, 535);
     image(easyIconFrame, 425, 535);
     text(getWord(true),150,570);
@@ -86,7 +86,7 @@ class WordList{
        input = "";
      }
      if (input.equalsIgnoreCase(hardWord)){
-       System.out.println("hard complete");
+       //System.out.println("hard complete");
        wiz.updateHardAttack();
        Spell spell = new Spell(false);
        spells.add(spell);

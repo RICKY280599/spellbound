@@ -7,6 +7,8 @@ class LoadGame{
   float barrierHP, enemySpeed;
   int enemyCount;
   boolean win = false;
+  int recentFrameRate;
+
   
   Barrier barrier;
   
@@ -64,15 +66,21 @@ class LoadGame{
       textFont(NoOutlineFont, 20);
       fill(3, 252, 240);
       text("Enemies Left: " + (spawner.enemyCount), (width - 330), 25);
+      if (fps){
+        if ((frameCount % 10) == 0){
+          recentFrameRate = (int)frameRate;
+        }
+       text("fps: " + recentFrameRate, (width-330), 50); 
+      }
       wiz.update();
       
       if (easyMode && spawner.enemyCount == 0){
-       //text(("Easy Mode Complete!"), 10, 25);
+       text(("Easy Mode Complete!"), 10, 25);
        gameOver = true;
        win = true;
       }
       if (hardMode && spawner.enemyCount == 0){
-       //text(("Hard Mode Complete!"), 10, 25);
+       text(("Hard Mode Complete!"), 10, 25);
        gameOver = true;
        win = true;
       }
@@ -83,6 +91,7 @@ class LoadGame{
       }
     }
     else{
+      background(0);
       fill(3, 252, 240);
       textFont(NoOutlineFont, 60);
       if (win == true){

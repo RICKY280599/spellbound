@@ -20,7 +20,6 @@ class FlyingEnemy implements Enemy {
     xpos = 925;
     //outputs 0 or 1 to randomize starting position
     int placement = int(random(2));
-    print(placement);
     if (placement == 0) {
       //top row
       ypos = height - 600;

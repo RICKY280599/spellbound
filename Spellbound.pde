@@ -8,6 +8,7 @@ import java.util.*;
 import processing.sound.*;
 
 //Images, font, sound, and spritesheet loaders
+Boolean fps;
 PImage menu;
 PFont OutlineFont, NoOutlineFont;
 SoundFile menuMusic, menuSelection;
@@ -50,6 +51,7 @@ public int gamesWon;
 int barrierEnemyCount;
 
 void setup() {
+  fps = false;
   size(900, 600);
   inMenu = true;
   OutlineFont = createFont("Fonts/OutlineMain.ttf", 85);
@@ -89,20 +91,12 @@ void handleEasyList() {
   for (String line : tempStr) {
     easyList.addAll(Arrays.asList(line.split(",")));
   }
-  for (String word : easyList) {
-    //System.out.println(word);
-  }
-  //System.out.println(easyList.size());
 }
 void handleHardList() {
   String[] tempStr = loadStrings("WordList/hardWordList.txt");
   for (String line : tempStr) {
     hardList.addAll(Arrays.asList(line.split(",")));
   }
-  for (String word : easyList) {
-    //System.out.println(word);
-  }
-  //System.out.println(easyList.size());
 }
 
 void draw() {
@@ -281,6 +275,12 @@ void loadMenu() {
 }
 
 void keyPressed() {
+  if (key == CODED){
+    if (keyCode == 123){
+     fps = !fps;
+    }
+  }
+  
   if (inMenu) {
     updateMenu();
   }
@@ -390,8 +390,7 @@ void gameOverMenuUpdate(){
      endless.display();
      wrds.display();
      wrds.update();
-    }
-    
+    }  
   }
 }
 

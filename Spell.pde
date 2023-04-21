@@ -71,7 +71,7 @@ class Spell {
    frame++;
    if (!type && xPos > 1000){
     remove = true;
-    System.out.println("removed");
+    //System.out.println("removed");
    }
    if (!type && frame > 1050){
     remove = true; 
