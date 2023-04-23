@@ -45,7 +45,7 @@ class FlyingEnemy implements Enemy {
         displayAnimation("Attack", xpos, ypos);
       }
     } else {
-      //stops after death animation is done
+      //displays death animation
         displayAnimation("Death", xpos, ypos);
         active = false;
     }
@@ -60,6 +60,7 @@ class FlyingEnemy implements Enemy {
 
   void updateDefeat() {
     alive = false;
+    //calls updatePosition() one more time to have a single frame for the death animation
     updatePosition(spawner.speed);
     spawner.minDistance = Float.MAX_VALUE;
     frameNumber = frameCount;

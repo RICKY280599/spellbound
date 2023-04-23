@@ -26,7 +26,7 @@ class Wizard {
     //Initial wizard position
     xpos = -50;
     ypos = height - 215;
-    
+
     //Set attack status
     easyAttack = false;
     hardAttack = false;
@@ -69,21 +69,20 @@ class Wizard {
       isFlying = false;
     }
   }
-  
-  float getPosition(boolean xPos){
-    if (xPos){
+
+  float getPosition(boolean xPos) {
+    if (xPos) {
       return xpos;
-    }
-    else{
-      return ypos; 
+    } else {
+      return ypos;
     }
   }
-  
+
   void updateEasyAttack() {
     easyAttack = true;
     currentFrame = frameCount;
   }
-  
+
   void updateHardAttack() {
     hardAttack = true;
     currentFrame = frameCount;

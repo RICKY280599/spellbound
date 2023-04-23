@@ -89,16 +89,16 @@ void playFail() {
   fail.play();
 }
 
-void playIceHit(){
+void playIceHit() {
   iceHit.play();
 }
 
-void playWaterCast(){
+void playWaterCast() {
   waterCast.play();
 }
 
-void playIceCast(){
- iceCast.play(); 
+void playIceCast() {
+  iceCast.play();
 }
 
 void handleEasyList() {
@@ -130,8 +130,8 @@ void draw() {
     if (easy.barrier.gameOver == false) {
       //Check if enemies are initialized every loop
       if (!enemiesInitialized) {
-        //Enemies are speed 1.3, 25 count
-        spawner.EnemyInitializer(1.3, 25);
+        //Enemies were originally a speed of 1.3, 25 count
+        spawner.EnemyInitializer(1.5, 25);
         enemiesInitialized = true;
       }
       //Spawn enemies every 5 seconds
@@ -145,7 +145,7 @@ void draw() {
           barrierEnemyCount++;
         }
       }
-      
+
       for (Enemy enemy : spawner.enemies) {
         if (enemy.isActive()) {
           if (spawner.spawnedEnemies < spawner.enemyCount) {
@@ -177,7 +177,8 @@ void draw() {
     hard.display();
     if (hard.barrier.gameOver == false) {
       if (!enemiesInitialized) {
-        spawner.EnemyInitializer(1.5, 50);
+        //originally 1.5 speed and 50 enemies
+        spawner.EnemyInitializer(2.0, 50);
         enemiesInitialized = true;
       }
       if (spawnTimer >= spawnDelay) {
@@ -258,7 +259,7 @@ void draw() {
       gameOver = true;
     }
   }
-  
+
   spawnTimer++;
 }
 
@@ -290,10 +291,10 @@ void loadMenu() {
 }
 
 void keyPressed() {
-  if (key == '`'){
+  if (key == '`') {
     fps = !fps;
   }
-  
+
   if (inMenu) {
     updateMenu();
   }
@@ -302,8 +303,8 @@ void keyPressed() {
     wiz.updatePosition();
     wrds.update();
   }
-  
-  if(gameOver){
+
+  if (gameOver) {
     gameOverMenuUpdate();
   }
 }
@@ -362,7 +363,7 @@ void updateMenu() {
   }
 }
 
-void gameOverMenuUpdate(){
+void gameOverMenuUpdate() {
   if (key == CODED) {
     if (keyCode == RIGHT) {
       if (overMenuOption < 2) {
@@ -376,44 +377,41 @@ void gameOverMenuUpdate(){
     }
   }
 
-  if(key == ENTER){
-    if(overMenuOption == 2){
+  if (key == ENTER) {
+    if (overMenuOption == 2) {
       exit();
-    } else if (overMenuOption == 1){
+    } else if (overMenuOption == 1) {
       resetGame();
       inMenu = true;
-      easyMode = false; 
+      easyMode = false;
       hardMode = false;
       endlessMode = false;
-      
-    } else if (overMenuOption == 0 && easyMode){
-     resetGame();
-     easy.display();
-     wrds.display();
-     wrds.update();
-     
-    } else if (overMenuOption == 0 && hardMode){
-     resetGame();
-     hard.display();
-     wrds.display();
-     wrds.update();
-     
+    } else if (overMenuOption == 0 && easyMode) {
+      resetGame();
+      easy.display();
+      wrds.display();
+      wrds.update();
+    } else if (overMenuOption == 0 && hardMode) {
+      resetGame();
+      hard.display();
+      wrds.display();
+      wrds.update();
     } else if (overMenuOption == 0 && endlessMode) {
-     resetGame();
-     endless.display();
-     wrds.display();
-     wrds.update();
-    }  
+      resetGame();
+      endless.display();
+      wrds.display();
+      wrds.update();
+    }
   }
 }
 
-void resetGame(){
- gameOver = false;
- easy = new LoadGame(0);
- hard = new LoadGame(1);
- endless = new LoadGame(2);
- wrds = new WordList();
- wrds.setLists(easyList, hardList);
- spawner = new EnemySpawner();
- enemiesInitialized = false;
+void resetGame() {
+  gameOver = false;
+  easy = new LoadGame(0);
+  hard = new LoadGame(1);
+  endless = new LoadGame(2);
+  wrds = new WordList();
+  wrds.setLists(easyList, hardList);
+  spawner = new EnemySpawner();
+  enemiesInitialized = false;
 }
